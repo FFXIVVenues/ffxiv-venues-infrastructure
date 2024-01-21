@@ -1,0 +1,18 @@
+version: '3'
+services:
+  ffxivvenues-ops-keycloak:
+    container_name: FFXIVVenues.Ops.Keycloak
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    env_file:
+      - ./default.env
+      - ./local.env
+    networks:
+      - FFXIVVenues.Network.Ops
+      
+networks:
+  FFXIVVenues.Network.Ops:
+    
