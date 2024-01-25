@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  db:
+  ffxivvenues-dbs-postgres:
     container_name: FFXIVVenues.Db.Postgres
     image: postgres
     restart: unless-stopped
@@ -10,13 +10,14 @@ services:
       - FFXIVVenues.Db.Postgres.Data:/var/lib/postgresql/data
     networks:
       - FFXIVVenues.Network.Db
-    environment:
+    # environment:
       # POSTGRES_PASSWORD:
     env_file:
       - ./postgres.env
 
 volumes:
   FFXIVVenues.Db.Postgres.Data:
+    name: FFXIVVenues.Db.Postgres.Data
 
 networks:
   FFXIVVenues.Network.Db:
