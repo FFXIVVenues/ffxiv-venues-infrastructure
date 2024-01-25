@@ -11,7 +11,7 @@ services:
     networks:
       - FFXIVVenues.Network.Db
     environment:
-      POSTGRES_PASSWORD: 
+      # POSTGRES_PASSWORD:
     env_file:
       - ./postgres.env
 
