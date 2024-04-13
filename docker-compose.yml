@@ -1,0 +1,61 @@
+version: '3.7'
+
+services:
+  api:
+    container_name: FFXIVVenues.Api
+    image: ffxivvenues/ffxivvenues.api:latest
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    volumes:
+      - FFXIVVenues.Api.MediaData:/app/media:rw
+    networks:
+      - Web
+      - FFXIVVenues.Api.Network
+    env_files:
+      - api.env
+
+  postgres:
+    container_name: FFXIVVenues.Api.Postgres
+    image: postgres
+    restart: unless-stopped
+    volumes:
+      - FFXIVVenues.Api.Postgres.Data:/var/lib/postgresql/data
+    networks:
+      - FFXIVVenues.Api.Network
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+  veni:
+    container_name: FFXIVVenues.Veni
+    image: ffxivvenues/ffxivvenues.veni:latest
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    networks:
+      - FFXIVVenues.Api.Network
+      - FFXIVVenues.Veni.Network
+    env_files:
+      - veni.env
+
+  mongo:
+    container_name: FFXIVVenues.Veni.Mongo
+    image: mongo
+    restart: unless-stopped
+    volumes:
+      - FFXIVVenues.Veni.Mongo.Volume:/data/db
+    networks:
+      - FFXIVVenues.Veni.Network
+
+volumes:
+  postgres-data:
+    name: FFXIVVenues.Api.Postgres.Data
+  api-media:
+    name: FFXIVVenues.Api.MediaData
+  FFXIVVenues.Veni.Mongo.Volume:
+
+networks:
+  Web:
+    external: true
+  FFXIVVenues.Api.Network:
+  FFXIVVenues.Veni.Network:
