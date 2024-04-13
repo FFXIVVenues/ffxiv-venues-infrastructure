@@ -43,7 +43,7 @@ services:
     image: mongo
     restart: unless-stopped
     volumes:
-      - FFXIVVenues.Veni.Mongo.Volume:/data/db
+      - FFXIVVenues.Veni.Mongo.Data:/data/db
     networks:
       - FFXIVVenues.Veni.Network
 
@@ -52,7 +52,8 @@ volumes:
     name: FFXIVVenues.Api.Postgres.Data
   api-media:
     name: FFXIVVenues.Api.MediaData
-  FFXIVVenues.Veni.Mongo.Volume:
+  mongo-data:
+    name: FFXIVVenues.Veni.Mongo.Data
 
 networks:
   Web:
