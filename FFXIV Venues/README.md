@@ -1,3 +1,5 @@
+# Running the FFXIV Venues stack
+
 ## Assumptions
 
 * You have WSL, docker, and docker compose installed
