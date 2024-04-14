@@ -11,7 +11,7 @@ This stack does not currently include the React frontend client.
 ## Getting Started
 
 1) Clone or download the files in [this directory](https://github.com/FFXIVVenues/ffxivvenues-infrastructure/tree/master/FFXIV%20Venues).  
-2) Edit the `.env` file and add all the relevant settings for Veni and API (see [Compose Variables](#Compose Variables) for more information).
+2) Edit the `.env` file and add all the relevant settings for Veni and API (see [Compose Variables](https://github.com/FFXIVVenues/ffxivvenues-infrastructure/blob/master/FFXIV%20Venues/README.md#compose-variables) for more information).
 4) [Local Development Only] In the `postgres` service in `docker-compose.yml`, add a `ports` section with `- "5432:5432"` port mapping.
 5) [Local Development Only] In the `mongo` service in `docker-compose.yml`, add a `ports` section with `- "27017:27017"` port mapping.
 7) Open WSL at the location of the file and run `docker compose up -d`
