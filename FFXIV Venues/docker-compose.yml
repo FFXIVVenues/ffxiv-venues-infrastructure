@@ -1,16 +1,25 @@
 version: '3.7'
 
 services:
+  web:
+    container_name: FFXIVVenues.Web
+    image: ffxivvenues/ffxivvenues.web:${IMAGE_TAG}
+    restart: unless-stopped
+    ports:
+      - 80:80
+
   api:
     container_name: FFXIVVenues.Api
-    image: ffxivvenues/ffxivvenues.api:latest
+    image: ffxivvenues/ffxivvenues.api:${IMAGE_TAG}
     restart: unless-stopped
     depends_on:
       - postgres
+    ports:
+      - 80:80
+      - 443:443
     volumes:
       - FFXIVVenues.Api.MediaData:/app/media:rw
     networks:
-      - Web
       - FFXIVVenues.Api.Network
     env_files:
       - api.env
@@ -28,7 +37,7 @@ services:
 
   veni:
     container_name: FFXIVVenues.Veni
-    image: ffxivvenues/ffxivvenues.veni:latest
+    image: ffxivvenues/ffxivvenues.veni:${IMAGE_TAG}
     restart: unless-stopped
     depends_on:
       - mongo
@@ -56,7 +65,5 @@ volumes:
     name: FFXIVVenues.Veni.Mongo.Data
 
 networks:
-  Web:
-    external: true
   FFXIVVenues.Api.Network:
   FFXIVVenues.Veni.Network:
