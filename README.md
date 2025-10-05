@@ -2,23 +2,23 @@
 
 ## Assumptions
 
-* You have WSL, docker, and docker compose installed
-* You have an IDE such as Visual Studio, JetBrains Riders, VS Code or fleet
-* You know how to set user-secrets with your IDE
-
-## Notes
-
-This stack does not currently include the React frontend client.
+* You are on Linux and have docker, and docker compose installed
 
 ## Getting Started
 
-1) Clone or download the files in [this directory](https://github.com/FFXIVVenues/ffxivvenues-infrastructure/tree/master/FFXIV%20Venues).  
-2) Edit the `.env` file and add all the relevant settings for Veni and API (see [Compose Variables](https://github.com/FFXIVVenues/ffxivvenues-infrastructure/blob/master/FFXIV%20Venues/README.md#compose-variables) for more information).
-4) [Local Development Only] In the `postgres` service in `docker-compose.yml`, add a `ports` section with `- "5432:5432"` port mapping.
-5) [Local Development Only] In the `mongo` service in `docker-compose.yml`, add a `ports` section with `- "27017:27017"` port mapping.
-7) Open WSL at the location of the file and run `docker compose up -d`
+1) Clone or download the files [the infrastructure repository](https://github.com/FFXIVVenues/ffxivvenues-infrastructure/tree/main/FFXIV%20Venues).
+```Bash Command
+git archive --format=tar --remote=https://github.com/FFXIVVenues/ffxiv-venues-infrastructure.git main | tar -x
+```
+2) Edit the `.env` file and add all the relevant settings for Veni and API (see [Compose Variables](https://github.com/FFXIVVenues/ffxivvenues-infrastructure/blob/main/README.md#compose-variables) for more information).
 
-You should now have a working API and Veni stack. 
+
+3) Launch the stack with Docker Compose
+```Back Command
+docker compose up -d
+```
+
+You should now have a working Web, API and Veni stack.
 
 ## Compose Variables
 
@@ -34,4 +34,4 @@ You should now have a working API and Veni stack.
 | MASTER_DISCORD_USER_ID | Provide the Discord User ID for the user that should be able to use this instance of Veni with all permissions. |
 | BETTERSTACK_LOGGING_TOKEN | Provide the Source Token from the Better Stack instance to which to sending logging. Optional. |
 
-For further configuration, take a look at the `api.env` and `veni.env` files, and refer to the configuration documentation in the appropriate respository's READMEs. 
+For further configuration, take a look at the `api.env` and `veni.env` files, and refer to the configuration documentation in the appropriate respository's READMEs.

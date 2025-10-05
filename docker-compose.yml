@@ -5,8 +5,8 @@ services:
     container_name: FFXIVVenues.Web
     image: ffxivvenues/ffxivvenues.web:${IMAGE_TAG}
     restart: unless-stopped
-    ports:
-      - 80:80
+    networks:
+      - web
 
   api:
     container_name: FFXIVVenues.Api
@@ -14,14 +14,12 @@ services:
     restart: unless-stopped
     depends_on:
       - postgres
-    ports:
-      - 80:80
-      - 443:443
     volumes:
-      - FFXIVVenues.Api.MediaData:/app/media:rw
+      - api-media:/app/media:rw
     networks:
-      - FFXIVVenues.Api.Network
-    env_files:
+      - ffxivvenues
+      - web
+    env_file:
       - api.env
 
   postgres:
@@ -29,9 +27,9 @@ services:
     image: postgres
     restart: unless-stopped
     volumes:
-      - FFXIVVenues.Api.Postgres.Data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     networks:
-      - FFXIVVenues.Api.Network
+      - ffxivvenues
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
@@ -42,9 +40,8 @@ services:
     depends_on:
       - mongo
     networks:
-      - FFXIVVenues.Api.Network
-      - FFXIVVenues.Veni.Network
-    env_files:
+      - ffxivvenues
+    env_file:
       - veni.env
 
   mongo:
@@ -52,9 +49,22 @@ services:
     image: mongo
     restart: unless-stopped
     volumes:
-      - FFXIVVenues.Veni.Mongo.Data:/data/db
+      - mongo-data:/data/db
     networks:
-      - FFXIVVenues.Veni.Network
+      - ffxivvenues
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    volumes:
+      - ./nginx/config:/etc/nginx/conf.d:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - web
+    restart: always
 
 volumes:
   postgres-data:
@@ -65,5 +75,7 @@ volumes:
     name: FFXIVVenues.Veni.Mongo.Data
 
 networks:
-  FFXIVVenues.Api.Network:
-  FFXIVVenues.Veni.Network:
+  web:
+    name: Web
+  ffxivvenues:
+    name: FFXIVVenues.Network
