@@ -6,9 +6,9 @@
 
 ## Getting Started
 
-1) Clone or download the files [the infrastructure repository](https://github.com/FFXIVVenues/ffxivvenues-infrastructure/tree/main/FFXIV%20Venues).
+1) Clone or download the files in [the infrastructure repository](https://github.com/FFXIVVenues/ffxivvenues-infrastructure/tree/main/FFXIV%20Venues).
 ```Bash Command
-git archive --format=tar --remote=https://github.com/FFXIVVenues/ffxiv-venues-infrastructure.git main | tar -x
+wget https://github.com/FFXIVVenues/ffxiv-venues-infrastructure/archive/refs/heads/main.zip && unzip main.zip && rm main.zip
 ```
 2) Edit the `.env` file and add all the relevant settings for Veni and API (see [Compose Variables](https://github.com/FFXIVVenues/ffxivvenues-infrastructure/blob/main/README.md#compose-variables) for more information).
 
