@@ -24,6 +24,18 @@ services:
     env_file:
       - api.env
 
+  ogcard:
+    container_name: FFXIVVenues.OGCard
+    image: ffxivvenues/ffxivvenues.ogcard:${IMAGE_TAG}
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    networks:
+      - ffxivvenues
+      - web
+    env_file:
+      - ogcard.env
+
   postgres:
     container_name: FFXIVVenues.Api.Postgres
     image: postgres
