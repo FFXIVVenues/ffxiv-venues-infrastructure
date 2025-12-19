@@ -38,4 +38,4 @@ You should now have a working Web, API and Veni stack.
 | RABBITMQ_USER | Provide a username that will be used for the RabbitMQ instance and by the domain Service to authenticate with it. |
 | RABBITMQ_PASSWORD | Provide a password that will be used for the RabbitMQ instance and by the domain services to authenticate with it. |
 
-For further configuration, take a look at the `api.env` and `veni.env` files, and refer to the configuration documentation in the appropriate respository's READMEs.
+For further configuration, take a look at the `apigateway.env` and `veni.env` files, and refer to the configuration documentation in the appropriate respository's READMEs.

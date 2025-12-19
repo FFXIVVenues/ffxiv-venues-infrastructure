@@ -23,7 +23,7 @@ services:
       - ffxivvenues
       - web
     env_file:
-      - api.env
+      - apigateway.env
 
   flagservice:
     container_name: FFXIVVenues.FlagService
