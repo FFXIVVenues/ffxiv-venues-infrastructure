@@ -10,7 +10,7 @@
 ```Bash Command
 wget https://github.com/FFXIVVenues/ffxiv-venues-infrastructure/archive/refs/heads/main.zip && unzip main.zip && rm main.zip
 ```
-2) Edit the `.env` file and add all the relevant settings for Veni and API (see [Compose Variables](https://github.com/FFXIVVenues/ffxivvenues-infrastructure/blob/main/README.md#compose-variables) for more information).
+2) Take and copy of `template.env`, naming it `.env` and add all the relevant settings configuration variables (see [Compose Variables](https://github.com/FFXIVVenues/ffxivvenues-infrastructure/blob/main/README.md#compose-variables) for more information).
 
 
 3) Launch the stack with Docker Compose
@@ -34,6 +34,7 @@ You should now have a working Web, API and Veni stack.
 | CLU_RUNTIME_KEY | Provide the API Key for Microsoft Cognitive Language APIs. Used for natural language commands. |
 | BETTERSTACK_LOGGING_TOKEN | Provide the Source Token from the Better Stack instance to which to sending logging. Optional. |
 | API_AUTH_KEY  | Provide an authentication key that will be used for the API to authenticate calling clients. This key will have all permissions and full scope, and will be used for Veni in this stack. |
-| POSTGRES_PASSWORD | Provide a password that will be used for the Postgres instance and by the API to authenticate with it. |
-
+| POSTGRES_PASSWORD | Provide a password that will be used for the Postgres instance and by the domain services to authenticate with it. |
+| RABBITMQ_USER | Provide a username that will be used for the RabbitMQ instance and by the domain Service to authenticate with it. |
+| RABBITMQ_PASSWORD | Provide a password that will be used for the RabbitMQ instance and by the domain services to authenticate with it. |
 For further configuration, take a look at the `api.env` and `veni.env` files, and refer to the configuration documentation in the appropriate respository's READMEs.
