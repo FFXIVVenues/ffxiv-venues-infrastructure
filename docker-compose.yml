@@ -50,7 +50,7 @@ services:
       - ffxivvenues
       - web
     env_file:
-      - ogcard.env
+      - ogcardservice.env
 
   postgres:
     container_name: FFXIVVenues.Api.Postgres
