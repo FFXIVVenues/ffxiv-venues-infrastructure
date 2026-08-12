@@ -52,6 +52,18 @@ services:
     env_file:
       - ogcardservice.env
 
+  webhookservice:
+    container_name: FFXIVVenues.WebHookService
+    image: ffxivvenues/ffxivvenues.webhookservice:${IMAGE_TAG}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ffxivvenues
+    env_file:
+      - webhookservice.env
+
   postgres:
     container_name: FFXIVVenues.Api.Postgres
     image: postgres
@@ -68,9 +80,9 @@ services:
       timeout: 3s
       retries: 10
 
-  veni:
-    container_name: FFXIVVenues.Veni
-    image: ffxivvenues/ffxivvenues.veni:${IMAGE_TAG}
+  botgateway:
+    container_name: FFXIVVenues.BotGateway
+    image: ffxivvenues/ffxivvenues.botgateway:${IMAGE_TAG}
     restart: unless-stopped
     depends_on:
       mongo:
@@ -78,7 +90,7 @@ services:
     networks:
       - ffxivvenues
     env_file:
-      - veni.env
+      - botgateway.env
 
   mongo:
     container_name: FFXIVVenues.Veni.Mongo
@@ -89,7 +101,11 @@ services:
     networks:
       - ffxivvenues
     healthcheck:
-      test: ["CMD-SHELL", "mongosh --username ${MONGO_USER} --password ${MONGO_PASSWORD} --eval 'db.adminCommand(\"ping\")' || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          'mongosh --username ${MONGO_USER} --password ${MONGO_PASSWORD} --eval ''db.adminCommand("ping")'' || exit 1',
+        ]
       interval: 5s
       timeout: 5s
       retries: 10
